@@ -1,0 +1,11 @@
+celery==5.3.6
+redis==5.0.1
+pydantic==2.5.2
+minio==7.2.0
+langchain==0.1.0
+langchain-openai==0.0.2
+openai==1.6.1
+pypdf==3.17.4
+psycopg2-binary==2.9.9
+ruff==0.1.6
+pytest==7.4.3
