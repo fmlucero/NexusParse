@@ -1,5 +1,9 @@
 # NexusParse - Asynchronous AI Extraction Fleet
 
+<div align="center">
+  <img src="nexusparse_architecture_concept.png" alt="NexusParse Architecture" width="800"/>
+</div>
+
 NexusParse isn't just an API; it is a distributed, production-ready system designed to extract strict JSON schemas from unstructured data at scale. It securely processes workloads, tolerates failure, and gracefully handles traffic spikes through an event-driven architecture.
 
 ## Why this Architecture?
