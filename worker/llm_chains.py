@@ -1,9 +1,7 @@
 import os
-import io
 import logging
 from PyPDF2 import PdfReader
 from langchain_openai import ChatOpenAI
-from langchain.prompts import PromptTemplate
 
 # Our highly strict schema
 from schemas import InvoiceInformation

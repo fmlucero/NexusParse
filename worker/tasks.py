@@ -58,13 +58,13 @@ def process_extraction(self, object_name: str, user_id: str):
         logger.warning(f"Pydantic Validation failed (Hallucination detected). Retrying... Error: {str(e)}")
         # Exponential backoff on JSON schema mismatches
         delay = self.default_retry_delay * (2 ** self.request.retries) 
-        raise self.retry(exc=e, countdown=delay)
+        raise self.retry(exc=e, countdown=delay) from e
 
     except Exception as e:
         logger.error(f"Critical Worker Error: {e}", exc_info=True)
         # We might not retry on pure fatal errors (like minio offline) unless we want to,
         # but let's assume we do for robustness.
-        raise self.retry(exc=e)
+        raise self.retry(exc=e) from e
         
     finally:
         # Cleanup
