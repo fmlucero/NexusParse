@@ -39,7 +39,7 @@ async def extract_pdf(
         logger.info(f"File uploaded to MinIO successfully: {object_name}")
     except Exception as e:
         logger.error(f"Failed to upload file to MinIO: {e}")
-        raise HTTPException(status_code=500, detail="Storage failure. Please try again later.")
+        raise HTTPException(status_code=500, detail="Storage failure. Please try again later.") from e
     
     # Submit task to Celery
     try:
@@ -54,7 +54,7 @@ async def extract_pdf(
         
     except Exception as e:
         logger.error(f"Celery failed to accept task: {e}")
-        raise HTTPException(status_code=500, detail="Broker failure. Please try again later.")
+        raise HTTPException(status_code=500, detail="Broker failure. Please try again later.") from e
     
     return TaskResponse(
         task_id=task.id,
