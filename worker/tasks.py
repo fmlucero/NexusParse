@@ -6,6 +6,7 @@ from pydantic import ValidationError
 
 from minio_client import get_file_from_minio
 from llm_chains import extract_text_from_pdf, run_extraction_chain
+from database import save_extraction_to_db
 
 logger = logging.getLogger("NexusParse.Worker.Tasks")
 
@@ -44,9 +45,13 @@ def process_extraction(self, object_name: str, user_id: str):
         
         logger.info(f"Successfully extracted: {json.dumps(extracted_data)[:100]}...")
         
-        # (Optional Mock) Step 4: Save to Database / Dispatch Webhook
-        # Here would go psycopg2 logic to insert into DB table.
-        # save_to_db(extracted_data, user_id)
+        # Step 4: Save strictly modeled data to Postgres
+        logger.info("Persisting validated schema into Database JSONB store...")
+        save_extraction_to_db(
+            user_id=user_id, 
+            original_file_reference=object_name, 
+            extracted_data=extracted_data
+        )
         
         return {
             "status": "success",
